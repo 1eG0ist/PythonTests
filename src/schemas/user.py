@@ -13,11 +13,8 @@ class User(BaseModel):
     @field_validator("email")
     def check_on_email(cls, email: str):
 
-        if len(email) < 5:
-            raise ValueError(UserError.ERROR_EMAIL_MSG_LENGTH)
+        assert len(email) >= 5, UserError.ERROR_EMAIL_MSG_LENGTH
 
-        if email.count("@") != 1:
-            raise ValueError(UserError.ERROR_EMAIL_MSG_DOG)
+        assert email.count("@") == 1, UserError.ERROR_EMAIL_MSG_DOG
 
-        if email.split("@")[1].count(".") != 1:
-            raise ValueError(UserError.ERROR_EMAIL_MSG_DOT)
+        assert email.split("@")[1].count(".") == 1, UserError.ERROR_EMAIL_MSG_DOT
